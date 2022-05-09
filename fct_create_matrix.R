@@ -74,6 +74,9 @@ get_updated_with_selected_wide <- function(longdf, mycol) {
   # mydf_very_wide <- dcast(longdf, Row ~ Column, value.var = c("Value", "Selected", "Conflict"))
   mydf_wide <- dcast(mydf, Row ~ Column)
   mydf_wide$Rw <- rev(mydf_wide$Row)
+  mydf_wide[, Rw := ifelse(Rw %% 2 == 1, 
+    paste0("<div class = '", "RegularOdd", "'>", Rw, "</div>"),
+    paste0("<div class = '", "RegularEven", "'>", Rw, "</div>"))]
   mydf_wide$Row <- NULL
   return(mydf_wide)
 }
