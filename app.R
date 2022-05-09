@@ -7,11 +7,9 @@ library(glue)
 library(data.table)
 library(reactable)
 source("fct_create_matrix.R")
-source("fct_color_rules.R")
 
 
-
-ui <- navbarPage(title = "Mosaic Crochet Design Tool",
+ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
 
   tabPanel("Design Tool",
     sidebarLayout(

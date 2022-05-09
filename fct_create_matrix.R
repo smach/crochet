@@ -1,3 +1,13 @@
+is.odd <- function(myint) {
+  ifelse(myint %% 2 == 1, TRUE, FALSE)
+}
+
+is.even <- function(myint) {
+  ifelse(myint %% 2 == 0, TRUE, FALSE)
+}
+
+
+
 #' create_df
 #'
 #' data frame with every value " " based on user input
