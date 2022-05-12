@@ -27,12 +27,15 @@ ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
                     ),
       mainPanel(
         HTML("<h2><em>Experimental</em> Overlay Mosaic Pattern Chart Generator</h2>"),
-        p("Choose your grid size and pattern color at left. Number of rows must be odd. Then, click on squares in the first table below to toggle cells between main (white is the default) and pattern color. The crochet chart will be generated in the second grid below."),
+        p("Choose your grid size and pattern color at left. Number of rows must be odd. Then, click on squares in the first table below to toggle cells between main (white is the default) and pattern color. Click the 'Generate chart' button below your 'drawing table', and the crochet pattern chart will be created in a second grid below."),
         p("Red on the chart means your design has 2 dc stitches in consecuritve rows, which won't work. Also, while the top row is clickable, it won't do anything because there is no row above to add a double crochet."),
         p("This system does not store you work! You may want to download results from time to time. Of course, when finished, download chart as an Excel or Word file."),
         p("Tool by Sharon Machlis coded in the R programming language. If you make something cool with this, please feel free to share your pattern with me!"),
        htmlOutput("headline"),
         DTOutput("maintable"),
+        br(),
+        actionButton("createChart", "Generate pattern!", class = "btn btn-success"),
+       br(),
         gt::gt_output("patterntable"),
         # verbatimTextOutput("myselected"),
         br()
@@ -73,7 +76,7 @@ server <- function(input, output, session) {
   })
   
 # Create long data frame combining initial data with selected data
-mydf_with_selected_long <- reactive({
+mydf_with_selected_long <- eventReactive(input$createChart, {
   req(mydf1(), selected_df())
   update_df_with_selected_long(mydf1(), selected_df())
 })
