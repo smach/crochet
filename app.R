@@ -5,12 +5,10 @@ library(gt)
 library(dplyr)
 library(glue)
 library(data.table)
-library(reactable)
 source("fct_create_matrix.R")
 
 
 ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
-
   tabPanel("Design Tool",
     sidebarLayout(
       sidebarPanel(width = 3,
