@@ -10,7 +10,7 @@ h4.author {text-align: center; !important;}
 
 Once I put it so much time into it, though, I figured I'd share it in case anyone else might find it interesting.
 
-**Who created this?** I'm Sharon Machlis, a journalist and data geek who loves coding and data. I've also been crocheting on and off for many years. I just discovered overlay mosaic crochet in the Spring of 2022 and am, well, hooked.
+**Who created this?** I'm Sharon Machlis, a journalist and data geek who loves coding and data. I've also been crocheting on and off for many years. I discovered overlay mosaic crochet in the Spring of 2022 after seeing the incredibly cool [Azul pattern by Tinna Thórudóttir Thorvaldsdóttir](https://www.ravelry.com/patterns/library/azul-9) and I am, well, hooked.
 
 **How do I use this app to make a design?** Options are in the left column. Choose your grid size -- number of rows must be odd and between 5 and 51; number of columns between 5 and 50. You can keep the default colors or choose colors of your own, and also choose your own pattern title. Then start clicking squares in the first table below to create your design. When you're ready to see what it looks like as a grid pattern, click the "Generate pattern!" button.
 
