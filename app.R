@@ -141,9 +141,13 @@ output$report <- shiny::downloadHandler(
   output$mystyle <- renderUI({
     tags$style(HTML(
       glue::glue(
-        "table.dataTable tr:nth-child(odd) td {{background-color: {input$maincolor};}}
+        "table.dataTable tr:nth-child(odd) td {{background-color: {input$maincolor}; }}
         table.dataTable tr:nth-child(even) td {{background-color: {input$patterncolor};}}
         .gt_table .Danger {{background-color: red !important;}}
+        .gt_table .gt_row {{padding-right: 0 !important;}}
+        .gt_table .gt_row {{padding-left: 0 !important;}}
+         .gt_table .gt_row {{text-align: center !important;}}
+         .gt_table .gt_row {{font-weight: bold !important;}}
         .gt_table .gt_row .gt_from_md .RegularOdd {{background-color: {input$maincolor} !important;}}
         .gt_table .gt_row .gt_from_md .RegularEven {{background-color: {input$patterncolor} !important;}}
         .gt_table .gt_row .gt_from_md .OppositeOdd {{background-color: {input$patterncolor} !important;}}

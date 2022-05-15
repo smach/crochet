@@ -133,6 +133,10 @@ create_drawing_table <- function(mydata, mycellwidth) {
 
 
 create_pattern_table <- function(wide_df, patterncolor = "cornflowerblue"){ 
+  # reverse display of column names
+  num_cols_minus_one <- ncol(wide_df) - 1
+  colnames(wide_df)[1:num_cols_minus_one] <- rev(colnames(wide_df)[1:num_cols_minus_one])
+  
   gt(wide_df, rowname_col = NULL) |>
     fmt_markdown(columns = c(names(wide_df))) |> # display HTML as HTML
     cols_width(
