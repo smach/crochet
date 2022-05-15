@@ -9,6 +9,7 @@ source("fct_create_matrix.R")
 
 
 ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
+                 tags$head(tags$link(rel="shortcut icon", href="https://apps.machlis.com/shiny/crochetapp/favicon.ico")),
   tabPanel("Design Tool",
     sidebarLayout(
       sidebarPanel(width = 3,
