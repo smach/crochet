@@ -3,6 +3,7 @@ sample_selected <- data.frame(Row = c(1,6,5,7,5,5,3,7,5,2,11), Column = c(1,8,8,
 sample_df1 <- create_df(11, 11)
 sample_df_long <- update_df_with_selected_long(sample_df1, sample_selected)
 sample_df_wide <- get_updated_with_selected_wide(sample_df_long, "HTMLValue")
+gt_table <- 
 
 test_that("odd even work", {
   expect_true(is.odd(3))

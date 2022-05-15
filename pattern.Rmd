@@ -1,0 +1,34 @@
+---
+output: html_document
+params:
+  mytableobject: NA
+  mypatterncolor: cornflowerblue
+  mymaincolor: white
+  mytitle: 'Mosaic Crochet Pattern'
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, message = FALSE)
+library(gt)
+```
+
+---
+title: `r params$mytitle`
+---
+
+<style> h1.title {font-size: 24px; text-align: center; !important;}
+        .gt_table .Danger {background-color: red !important;}
+        .gt_table .gt_row .gt_from_md .RegularOdd {background-color: `r params$mymaincolor` !important;}
+        .gt_table .gt_row .gt_from_md .RegularEven {background-color: `r params$mypatterncolor` !important;}
+        .gt_table .gt_row .gt_from_md .OppositeOdd {background-color: `r params$patterncolor` !important;}
+        .gt_table .gt_row .gt_from_md .OppositeEven {background-color: `r params$mymaincolor` !important;}</style>
+
+```{r}
+params$mytableobject
+```
+
+
+
+
+
+

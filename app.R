@@ -20,20 +20,23 @@ ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
        shiny::textInput("maincolor", "Main (background) color:", value = "white"),
        em("Colors can be hex codes or ", a("valid R color names", href="https://r-graph-gallery.com/42-colors-names.html")),
         br(),
-        shiny::textInput("title", "Title for your pattern:", value = " ")
+        shiny::textInput("title", "Title for your pattern:", value = "Mosaic Crochet Pattern")
                               
                     ),
       mainPanel(
         HTML("<h2><em>Experimental</em> Overlay Mosaic Pattern Chart Generator</h2>"),
-        p("Choose your grid size and pattern color at left. Number of rows must be odd. Then, click on squares in the first table below to toggle cells between main (white is the default) and pattern color. Click the 'Generate chart' button below your 'drawing table', and the crochet pattern chart will be created in a second grid below."),
+        p("Choose your grid size, main (background) color, pattern color, and optional pattern title at left. **Number of rows must be odd.**"),
+        p("To create your pattern, click on grid squares in the table below to toggle cell colors. Click the 'Generate chart' button below your 'drawing table', and the crochet pattern chart will be created in a second grid below."),
         p("Red on the chart means your design has 2 dc stitches in consecuritve rows, which won't work. Also, while the top row is clickable, it won't do anything because there is no row above to add a double crochet."),
-        p("This system does not store you work! You may want to download results from time to time. Of course, when finished, download chart as an Excel or Word file."),
+        p("This system does not store you work! You may want to download results from time to time. Of course, when finished, download chart as an HTML file."),
+        p("You can open the resulting HTML file in your browser. If you want a PDF, I suggest using a free Web tool such as", a(href = 'https://cloudconvert.com/html-to-pdf', 'Cloudconvert.com')),
         p("Tool by Sharon Machlis coded in the R programming language. If you make something cool with this, please feel free to share your pattern with me!"),
-       htmlOutput("headline"),
         DTOutput("maintable"),
         br(),
         actionButton("createChart", "Generate pattern!", class = "btn btn-success"),
-       br(),
+       br(),br(),
+        uiOutput("downloadButtonPlaceholder"),
+        htmlOutput("headline"),
         gt::gt_output("patterntable"),
         # verbatimTextOutput("myselected"),
         br()
@@ -55,7 +58,7 @@ server <- function(input, output, session) {
 
   
   output$headline <- renderUI({
-     req(input$title)
+     req(input$title, pattern_table_body())
      HTML(paste0("<center><h2>", input$title, "</h2></center>"))
     
   })
@@ -87,10 +90,49 @@ mydf_with_selected_long <- eventReactive(input$createChart, {
 
 # Create 2nd table in response to user drawing on 1st table ----
  output$patterntable <- gt::render_gt({
-   create_pattern_table(get_updated_with_selected_wide(mydf_with_selected_long(), "HTMLValue"), input$patterncolor)
+  req(pattern_table_body())
+  pattern_table_body()
    
  })
   
+pattern_table_body <- reactive({
+  req(mydf_with_selected_long())
+  create_pattern_table(get_updated_with_selected_wide(mydf_with_selected_long(), "HTMLValue"), input$patterncolor)
+})
+
+# Download button
+output$downloadButtonPlaceholder <- renderUI({
+  req(pattern_table_body())
+  downloadButton('report', "Download pattern table", class = ".btn .btn-info")
+})
+
+# Generate report and needed files/CSS ----
+output$report <- shiny::downloadHandler(
+  filename = paste0("pattern", Sys.Date(), ".html"),
+  content = function(file) {
+    tempReport <- file.path(tempdir(), "pattern.Rmd")
+    file.copy("pattern.Rmd", tempReport, overwrite = TRUE)
+    
+    params <- list(
+      mytableobject = pattern_table_body(),
+      mypatterncolor = input$patterncolor,
+      mymaincolor = input$maincolor,
+      mytitle = input$title
+    )
+    
+    rmarkdown::render(tempReport, output_file = file,
+                      params = params,
+                      envir = new.env(parent = globalenv())
+                      )
+    
+  }
+  
+  
+)
+
+
+
+
   
 # Helper functions ----
 # .gt_table tr:nth-child(3) > td:nth-child(4)  {{background-color: purple !important;}} # targets cell by location
@@ -113,11 +155,15 @@ mydf_with_selected_long <- eventReactive(input$createChart, {
     ))
   })
   
+
+
+
+
  
   
 ## Dev ----
 # print selected cells wrangled data frame
-  output$myselected = renderPrint(selected_df())
+#  output$myselected = renderPrint(selected_df())
   
   
 } # end app
