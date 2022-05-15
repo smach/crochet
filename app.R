@@ -24,7 +24,7 @@ ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
                               
                     ),
       mainPanel(
-        HTML("<h2><em>Experimental</em> Overlay Mosaic Pattern Chart Generator</h2>"),
+        HTML("<h2><em>Experimental</em> Overlay Mosaic Crochet Pattern Chart Generator</h2>"),
         p("Choose your grid size, main (background) color, pattern color, and optional pattern title at left. **Number of rows must be odd.**"),
         p("To create your pattern, click on grid squares in the table below to toggle cell colors. Click the 'Generate chart' button below your 'drawing table', and the crochet pattern chart will be created in a second grid below."),
         p("Red on the chart means your design has 2 dc stitches in consecuritve rows, which won't work. Also, while the top row is clickable, it won't do anything because there is no row above to add a double crochet."),
