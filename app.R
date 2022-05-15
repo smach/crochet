@@ -8,7 +8,7 @@ library(data.table)
 source("fct_create_matrix.R")
 
 
-ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
+ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
   tabPanel("Design Tool",
     sidebarLayout(
       sidebarPanel(width = 3,
@@ -46,8 +46,8 @@ ui <- navbarPage(title = "BETA Mosaic Crochet Design Tool",
                           
   ), # end tab1
 
-  tabPanel("About",
-                           
+  tabPanel("FAQ",
+           includeMarkdown("faq.md")                   
                            
   ) #end tab2
 ) # end UI
