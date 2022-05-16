@@ -5,7 +5,9 @@ library(gt)
 library(dplyr)
 library(glue)
 library(data.table)
+library(openxlsx)
 source("fct_create_matrix.R")
+source("fct_create_xlsx.R")
 
 
 ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
@@ -35,6 +37,7 @@ ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
         actionButton("createChart", "Generate pattern!", class = "btn btn-success"),
        br(),br(),
         uiOutput("downloadButtonPlaceholder"),
+        uiOutput("downloadExcelPlaceholder"),
         htmlOutput("headline"),
         gt::gt_output("patterntable"),
         # verbatimTextOutput("myselected"),
@@ -99,10 +102,33 @@ pattern_table_body <- reactive({
   create_pattern_table(get_updated_with_selected_wide(mydf_with_selected_long(), "HTMLValue"), input$patterncolor)
 })
 
+
+# Download Excel button
+output$downloadExcelPlaceholder <- renderUI({
+  req(pattern_table_body())
+  downloadButton('spreadsheet', "Download pattern table as Excel (w extra row 1)", class = ".btn .btn-info")
+})
+
+excel_object <- reactive({
+  req(mydf_with_selected_long())
+  fct_create_xlsx(get_updated_with_selected_wide(mydf_with_selected_long(), "HTMLValue"), get_updated_with_selected_wide(mydf_with_selected_long(), "Value"), input$maincolor, input$patterncolor)
+})
+
+output$spreadsheet <- downloadHandler(
+  filename = function() {
+    paste0("pattern", Sys.Date(), ".xlsx")
+  },
+    content = function(file) {
+      saveWorkbook(excel_object(), file = file, overwrite = TRUE)
+    }
+)
+
+
+
 # Download button
 output$downloadButtonPlaceholder <- renderUI({
   req(pattern_table_body())
-  downloadButton('report', "Download pattern table", class = ".btn .btn-info")
+  downloadButton('report', "Download pattern table as HTML", class = ".btn .btn-info")
 })
 
 # Generate report and needed files/CSS ----
