@@ -106,7 +106,7 @@ pattern_table_body <- reactive({
 # Download Excel button
 output$downloadExcelPlaceholder <- renderUI({
   req(pattern_table_body())
-  downloadButton('spreadsheet', "Download pattern table as Excel (w extra row 1)", class = ".btn .btn-info")
+  downloadButton('spreadsheet', "Download pattern table as Excel (REALLY experimental)", class = ".btn .btn-info")
 })
 
 excel_object <- reactive({

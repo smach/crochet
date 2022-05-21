@@ -5,6 +5,9 @@ fct_create_xlsx <- function(df_html, df_value, mymaincolor = "white", mypatternc
       .SD, function(x){gsub("(^.*?)&nbsp;(.*?$)", "\\1 \\2", x)}
     )]
   df_value[, Rw := gsub(".*?(\\d{1,2}).*?$", "\\1", Rw)]
+ # df_value$Rw <- NULL
+ #  df_html$Rw <- NULL
+  
   pattern_color_cells <- apply(df_html, 1, function(x) which(grepl("OppositeOdd|RegularEven", x)))
   main_color_cells <- apply(df_html, 1, function(x) which(grepl("OppositeEven|RegularOdd", x)))
   danger_color_cells <- apply(df_html, 1, function(x) which(grepl("Danger", x)))
@@ -16,7 +19,7 @@ fct_create_xlsx <- function(df_html, df_value, mymaincolor = "white", mypatternc
   
   wb <- createWorkbook()
   addWorksheet(wb, "pattern")
-  writeData(wb, 1, df_value, borders = "all")
+  writeData(wb, 1, df_value, borders = "all", colNames = FALSE)
   
 
 
@@ -40,7 +43,7 @@ if(length(danger_color_cells) > 0) {
   }
 }
   
-  writeData(wb, 1, df_value, colNames = FALSE)
+  # writeData(wb, 1, df_value, colNames = FALSE)
   return(wb)
   
 }

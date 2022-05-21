@@ -21,7 +21,11 @@ is.even <- function(myint) {
 #'
 #' @noRd 
 
-create_df <- function(input.numrows = 12, input.numcols = 12) {
+create_df <- function(input.numrows = 15, input.numcols = 12) {
+  # make sure number of rows is odd
+  if(input.numrows %% 2 == 0) {
+    input.numrows <- input.numrows + 1
+  }
   thematrix <- matrix(" ", nrow = input.numrows, ncol = input.numcols,
                    dimnames = list(
                      seq.int(1,input.numrows,1),
