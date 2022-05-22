@@ -5,6 +5,7 @@ params:
   mypatterncolor: cornflowerblue
   mymaincolor: white
   mytitle: 'Mosaic Crochet Pattern'
+  myinstructions: ' '
 ---
 
 ```{r setup, include=FALSE}
@@ -32,6 +33,9 @@ params$mytableobject
 ```
 
 
+### Written Instructions
+
+`r params$myinstructions`
 
 
 

@@ -8,6 +8,7 @@ library(data.table)
 library(openxlsx)
 source("fct_create_matrix.R")
 source("fct_create_xlsx.R")
+source("fct_create_written_instructions.R")
 
 
 ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
@@ -31,7 +32,7 @@ ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
         HTML("<strong><h3 style='text-align:left;'>Click cells in table below to toggle colors. Then click the 'Generate pattern!' button</h3></strong>"),
         p("Details: Choose your grid size, main (background) color, pattern color, and optional pattern title at left. Number of rows must be odd."),
         p("Red on the chart means your design has 2 dc stitches in consecuritve rows, which won't work. Also, while the top row is clickable, it won't do anything because there is no row above to add a dc."),
-        p("This system does not store you work! You can download your chart as an HTML file after generating the chart or (very experimental) an Excel file."),
+        p("This system does not store you work! You can download your chart as an HTML file after generating the chart or an Excel file. HTML file includes written instructions."),
         DTOutput("maintable"),
         br(),
         actionButton("createChart", "Generate pattern!", class = "btn btn-success"),
@@ -41,8 +42,8 @@ ui <- navbarPage(title = "BETA Overlay Mosaic Crochet Design Tool",
         htmlOutput("headline"),
         gt::gt_output("patterntable"),
         # verbatimTextOutput("myselected"),
-        br()
-        
+        br(),
+        htmlOutput("display_written_instructions")
       )
     )
                           
@@ -94,7 +95,6 @@ mydf_with_selected_long <- eventReactive(input$createChart, {
  output$patterntable <- gt::render_gt({
   req(pattern_table_body())
   pattern_table_body()
-   
  })
   
 pattern_table_body <- reactive({
@@ -103,10 +103,21 @@ pattern_table_body <- reactive({
 })
 
 
+written_instructions <- reactive({
+  req(pattern_table_body(), mydf_with_selected_long())
+  create_written_instructions(get_updated_with_selected_wide(mydf_with_selected_long(), "Value"))
+})
+
+
+output$display_written_instructions <- renderUI({
+  req(written_instructions())
+  HTML(written_instructions())
+})
+
 # Download Excel button
 output$downloadExcelPlaceholder <- renderUI({
   req(pattern_table_body())
-  downloadButton('spreadsheet', "Download pattern table as Excel (REALLY experimental)", class = ".btn .btn-info")
+  downloadButton('spreadsheet', "Download pattern table as Excel", class = ".btn .btn-info")
 })
 
 excel_object <- reactive({
@@ -142,7 +153,8 @@ output$report <- shiny::downloadHandler(
       mytableobject = pattern_table_body(),
       mypatterncolor = input$patterncolor,
       mymaincolor = input$maincolor,
-      mytitle = input$title
+      mytitle = input$title,
+      myinstructions = written_instructions()
     )
     
     rmarkdown::render(tempReport, output_file = file,

@@ -13,9 +13,9 @@ fct_create_xlsx <- function(df_html, df_value, mymaincolor = "white", mypatternc
   danger_color_cells <- apply(df_html, 1, function(x) which(grepl("Danger", x)))
   
   
-  mainColorStyle <- createStyle(fgFill = mymaincolor, borderStyle = "thick", border = c("top", "left", "bottom", "right"))
-  patternColorStyle <- createStyle(fgFill = mypatterncolor, borderStyle = "thick", border = c("top", "left", "bottom", "right"))
-  dangerColorStyle <- createStyle(fgFill = "red", borderStyle = "thick", border = c("top", "left", "bottom", "right"))
+  mainColorStyle <- createStyle(fgFill = mymaincolor, borderStyle = "thick", border = c("top", "left", "bottom", "right"), halign = "center", valign = "center")
+  patternColorStyle <- createStyle(fgFill = mypatterncolor, borderStyle = "thick", border = c("top", "left", "bottom", "right"), halign = "center", valign = "center")
+  dangerColorStyle <- createStyle(fgFill = "red", borderStyle = "thick", border = c("top", "left", "bottom", "right"), halign = "center", valign = "center")
   
   wb <- createWorkbook()
   addWorksheet(wb, "pattern")
