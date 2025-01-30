@@ -10,7 +10,7 @@ h4.author {text-align: center; !important;}
 
 Once I put it so much time into it, though, I figured I'd share it in case anyone else might find it interesting.
 
-**Who created this?** I'm Sharon Machlis, a journalist and data geek who loves coding and data. I've also been crocheting on and off for many years. I discovered overlay mosaic crochet in the Spring of 2022 after seeing the incredibly cool [Azul pattern by Tinna Thórudóttir Thorvaldsdóttir](https://www.ravelry.com/patterns/library/azul-9) and I am, well, hooked.
+**Who created this?** I'm Sharon Machlis, a long-time journalist and data geek who loves coding and data. I've also been crocheting on and off for many years. I discovered overlay mosaic crochet in the Spring of 2022 after seeing the incredibly cool [Azul pattern by Tinna Thórudóttir Thorvaldsdóttir](https://www.ravelry.com/patterns/library/azul-9) and I am, well, hooked.
 
 **How do I use this app to make a design?** Options are in the left column. Choose your grid size -- number of rows must be odd and between 5 and 51; number of columns between 5 and 50. You can keep the default colors or choose colors of your own, and also choose your own pattern title. Then start clicking squares in the first table below to create your design. When you're ready to see what it looks like as a grid pattern, click the "Generate pattern!" button.
 
@@ -28,5 +28,5 @@ Note that the system does not save your work. **I can't guarantee that your work
 
 You can [see the code on GitHub](https://github.com/smach/crochet) -- and even download the code to run locally on your own system, but only if you've got R installed and all the necessary R packages. Explaining how to do that is definitely beyond the scope of this FAQ, though. :)
 
-In my day job, I analyze data for a tech publisher with R and host the [Do More With R](https://bit.ly/domorewithR) series at InfoWorld. I also wrote [Practical R for Mass Communication and Journalism](https://www.machlis.com/R4Journalists/).
+I create this while working as a data professional doing analysis for a tech publisher with R as well as hosting the [Do More With R](https://bit.ly/domorewithR) series at InfoWorld. I also wrote [Practical R for Mass Communication and Journalism](https://www.machlis.com/R4Journalists/). Now I'm happily retired and have more time for hobby coding _and_ crochet projects.
 
